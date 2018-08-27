@@ -6,28 +6,28 @@ Created on Nov 7, 2013
 import numpy
 import matplotlib.pyplot as plt
 
-from FmuUtils import Model
-from FmuUtils import CsvReader
+from estimationpy.fmu_utils import model
+from estimationpy.fmu_utils import csv_reader
 
 def main():
     
     # Initialize the FMU model empty
-    m = Model.Model()
+    m = model.Model()
     
     # Assign an existing FMU to the model
-    filePath = "../../../modelica/FmuExamples/Resources/FMUs/Pump_MBL3.fmu"
+    filePath = "../../modelica/FmuExamples/Resources/FMUs/Pump_MBL3.fmu"
     
     # ReInit the model with the new FMU
-    m.ReInit(filePath)
+    m.re_init(filePath)
     
     # Show details
     print(m)
     
     # Show the inputs
-    print("The names of the FMU inputs are: ", m.GetInputNames(), "\n")
+    print("The names of the FMU inputs are: ", m.get_input_names(), "\n")
     
     # Show the outputs
-    print("The names of the FMU outputs are:", m.GetOutputNames(), "\n")
+    print("The names of the FMU outputs are:", m.get_output_names(), "\n")
     
     # Path of the csv file containing the data series
     #csvPath = "../../../modelica/FmuExamples/Resources/data/DataPumpVeryShort.csv"
@@ -35,12 +35,12 @@ def main():
     #csvPath = "../../../modelica/FmuExamples/Resources/data/DataPump_16to19_Oct2012_variableStep.csv"
     
     # Set the CSV file associated to the input, and its covariance
-    input = m.GetInputByName("Nrpm")
-    input.GetCsvReader().OpenCSV(csvPath)
-    input.GetCsvReader().SetSelectedColumn("Pump.Speed")
+    input = m.get_input_by_name("Nrpm")
+    input.get_csv_reader().open_csv(csvPath)
+    input.get_csv_reader().set_selected_column("Pump.Speed")
     
     # Initialize the model for the simulation
-    m.InitializeSimulator()
+    m.initialize_simulator()
     
     #pars = [0.106,  0.50041746, 0.9, 1.]
     #pars = [0.11574544, 0.67699191, 0.8862938, 1.]
@@ -48,20 +48,20 @@ def main():
     #pars = [0.1222095,  0.1210177,  0.12177384, 1.]
     
     # Set the parameters of the model
-    par_1 = m.GetVariableObject("pump.power.P[1]")
-    m.SetReal(par_1, pars[0])
+    par_1 = m.get_variable_object("pump.power.P[1]")
+    m.set_real(par_1, pars[0])
     
-    par_2 = m.GetVariableObject("pump.power.P[2]")
-    m.SetReal(par_2, pars[1])
+    par_2 = m.get_variable_object("pump.power.P[2]")
+    m.set_real(par_2, pars[1])
     
-    par_3 = m.GetVariableObject("pump.power.P[3]")
-    m.SetReal(par_3, pars[2])
+    par_3 = m.get_variable_object("pump.power.P[3]")
+    m.set_real(par_3, pars[2])
     
-    par_4 = m.GetVariableObject("pump.power.P[4]")
-    m.SetReal(par_4, pars[3])
+    par_4 = m.get_variable_object("pump.power.P[4]")
+    m.set_real(par_4, pars[3])
                      
     # Simulate
-    time, results = m.Simulate()
+    time, results = m.simulate()
     
     # Show the results
     showResults(time, results, csvPath, pars)
