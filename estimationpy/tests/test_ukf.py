@@ -308,7 +308,7 @@ class Test(unittest.TestCase):
         notUsed, N = Xtrue.shape
         Xpoints = np.zeros((n,N))
         for i in range(n):
-	    noise = np.random.uniform(-2.0,2.0,(1,N)) 
+        noise = np.random.uniform(-2.0,2.0,(1,N)) 
 	    Xpoints[i,:] = Xtrue + noise
 
         # default covariance to be added

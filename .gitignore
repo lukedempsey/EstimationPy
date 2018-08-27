@@ -29,6 +29,7 @@ dslog.txt
 
 # Compiled source #
 ###################
+build/
 *.com
 *.class
 *.dll
