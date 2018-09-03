@@ -1336,10 +1336,11 @@ class Model:
             var = InOutVar()
             var.set_object(dictVariables[k])
             
-            if variability is None and causality ==0:
+            
+            if variability is None and causality is 2:
                 # input
                 self.inputs.append(var)
-            if variability is None and causality ==1:
+            if variability is None and causality is 3:
                 # output
                 self.outputs.append(var)
 
@@ -1352,7 +1353,7 @@ class Model:
 
         :rtype: None
         """
-        self.__set_in_out_var__(None, 0) # TODO: inspect None
+        self.__set_in_out_var__(None, 2) # TODO: inspect None
         
     def __set_outputs__(self):
         """
@@ -1363,7 +1364,7 @@ class Model:
 
         :rtype: None
         """
-        self.__set_in_out_var__(None, 1)
+        self.__set_in_out_var__(None, 3)
     
     def set_result_file(self, file_name):
         """
